@@ -34,7 +34,7 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete }) => {
                 </td>
               ))}
               <td className={getCellStyles(styleVariant)}>
-                <div className="flex space-x-2">
+                <div className="flex justify-center space-x-2">
                   <button
                     onClick={() => onView(row)}
                     className="text-blue-600 hover:text-blue-800"
