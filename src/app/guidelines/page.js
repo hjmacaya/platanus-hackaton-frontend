@@ -10,7 +10,7 @@ export default function GuidelinesPage() {
   // Table actions
   const handleView = (guideline) => {
     // Go to the guideline page
-    router.push(`/guidelines/${guideline.id}`);
+    router.push(`/guidelines/${guideline.id}/tests`);
   }
   const handleEdit = (guideline) => {
     console.log("Editing guideline:", guideline);
