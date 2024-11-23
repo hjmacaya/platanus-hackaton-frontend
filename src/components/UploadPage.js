@@ -1,8 +1,9 @@
 'use client'
+import axios from 'axios';
 import React, { useState } from 'react';
 import DragAndDrop from '../components/DragAndDrop';
 
-const UploadPage = ({ apiEndpoint }) => {
+const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
   const [files, setFiles] = useState([]);
 
   const handleFilesAdded = (newFiles) => {
@@ -13,32 +14,34 @@ const UploadPage = ({ apiEndpoint }) => {
   const handleUpload = async () => {
     const formData = new FormData();
     files.forEach((file) => {
-      formData.append('files', file);
+      formData.append('file', file);
     });
 
-    // TODO: Change to backend endpoint
-    // TODO: Change to apiEndpoint and use axios
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const requestOptions = {
+        method: method,
+        data: formData,
+        url: apiEndpoint,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      const response = await axios(requestOptions);
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert('Archivos subidos correctamente!');
         setFiles([]); // Clear the files after successful upload
       } else {
-        alert('No se pudieron subir los archivos.');
+        alert('Error al subir archivos.');
       }
     } catch (error) {
       console.error('Error al subir archivos:', error);
-      alert('Error al subir archivos.');
     }
   };
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Sube tus pautas</h1>
+      <h1 className="text-2xl font-bold mb-4">Sube tus {elementToDrop}</h1>
       <DragAndDrop onFilesAdded={handleFilesAdded} />
       {files.length > 0 && (
         <div className="mt-6">
