@@ -1,8 +1,9 @@
 import Image from "next/image";
+import { SecondaryButton } from "../buttons";
 
-const BaseCard = ({ title, text, image, link, isClickable, hasImage }) => {
+const BaseCard = ({ title, text, image, link, isClickable, hasImage, buttonText }) => {
   const Wrapper = isClickable ? 'a' : 'div';
-  const cardClasses = `max-w-xs rounded overflow-hidden shadow-lg ${
+  const cardClasses = `w-[320px] h-[400px] rounded overflow-hidden shadow-lg ${
     isClickable ? 'hover:shadow-xl transform hover:scale-105 transition duration-300' : ''
   }`;
 
@@ -10,10 +11,33 @@ const BaseCard = ({ title, text, image, link, isClickable, hasImage }) => {
     <Wrapper
       href={isClickable ? link : undefined}
       className={cardClasses}
-    >
+    > 
+      {/* Image has passed as a prop */}
       {hasImage && image && (
-        <Image className="w-full" src={image} alt="Card Image" width={100} height={100} />
+        <div className="h-[200px] relative">
+        <Image 
+          className="object-cover"
+          src={image} 
+          alt="Card Image" 
+          fill
+          sizes="320px"
+        />
+      </div>
       )}
+
+      {/* Set default image if not passed as a prop */}
+      {!hasImage && (
+        <div className="h-[200px] relative">
+          <Image 
+          className="object-cover"
+          src="/logo.jpeg" 
+          alt="Card Image" 
+          fill
+          sizes="320px"
+        />
+        </div>
+      )}
+
       <div className="px-4 py-3">
         <div className="font-bold text-xl mb-2">{title}</div>
         <p className="text-gray-700 text-base">
@@ -22,12 +46,7 @@ const BaseCard = ({ title, text, image, link, isClickable, hasImage }) => {
       </div>
       {!isClickable && (
         <div className="px-4 py-3">
-          <a
-            href={link}
-            className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Learn More
-          </a>
+          <SecondaryButton text={buttonText} />
         </div>
       )}
     </Wrapper>
