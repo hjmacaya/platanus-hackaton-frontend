@@ -14,7 +14,7 @@ const UploadPage = ({ apiEndpoint, method }) => {
   const handleUpload = async () => {
     const formData = new FormData();
     files.forEach((file) => {
-      formData.append('files', file);
+      formData.append('file', file);
     });
 
     try {
@@ -26,10 +26,9 @@ const UploadPage = ({ apiEndpoint, method }) => {
           'Content-Type': 'multipart/form-data'
         }
       }
-      console.log("requestOptions", requestOptions);
       const response = await axios(requestOptions);
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert('Archivos subidos correctamente!');
         setFiles([]); // Clear the files after successful upload
       } else {

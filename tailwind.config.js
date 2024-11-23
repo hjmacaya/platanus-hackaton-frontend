@@ -10,6 +10,7 @@ module.exports = {
     './src/app/**/*.{js,jsx,ts,tsx,mdx}',
     './src/pages/**/*.{js,jsx,ts,tsx,mdx}',
     './src/components/**/*.{js,jsx,ts,tsx,mdx}',
+    './src/config/**/*.{js,jsx,ts,tsx,mdx}',
   ],
   prefix: "",
   theme: {

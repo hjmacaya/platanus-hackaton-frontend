@@ -1,7 +1,8 @@
 'use client';
 import { UploadPage } from '@/components/UploadPage';
-import { GuidelineCard } from '@/components/cards';
 import { Table } from '@/components/tables';
+import { configFile } from '../../config';
+
 export default function GuidelinesPage() {
 
   // Table actions
@@ -45,7 +46,7 @@ export default function GuidelinesPage() {
   return (
     <div>
       {/* Drag and Drop Upload */}
-      <UploadPage apiEndpoint="/api/guidelines" method="POST" />
+      <UploadPage apiEndpoint={`${configFile.API_BASE_URL}/pauta/`} method="POST" />
 
       {/* Guidelines Table */}
       <div className="flex justify-center items-center my-4">
