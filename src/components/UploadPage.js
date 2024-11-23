@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import DragAndDrop from '../components/DragAndDrop';
 
-const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
+const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
   const [files, setFiles] = useState([]);
 
   const handleFilesAdded = (newFiles) => {
@@ -13,9 +13,13 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
   // Set formData and send to backend
   const handleUpload = async () => {
     const formData = new FormData();
-    files.forEach((file) => {
-      formData.append('files', file);
-    });
+    if (isMultipleFiles) {
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+    } else {
+      formData.append('file', files[0]);
+    }
 
     try {
       const requestOptions = {
