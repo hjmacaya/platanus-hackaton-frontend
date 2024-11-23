@@ -31,7 +31,7 @@ export default function GuidelinesPage() {
   ]
   return (
     <div>
-      <UploadPage apiEndpoint="/api/guidelines" />
+      <UploadPage apiEndpoint="/api/guidelines" method="POST" />
 
       <div className="flex justify-center items-center my-4">
         <h1 className="text-2xl font-bold">Tus pautas</h1>

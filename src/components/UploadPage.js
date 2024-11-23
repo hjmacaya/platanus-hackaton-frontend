@@ -1,8 +1,9 @@
 'use client'
+import axios from 'axios';
 import React, { useState } from 'react';
 import DragAndDrop from '../components/DragAndDrop';
 
-const UploadPage = ({ apiEndpoint }) => {
+const UploadPage = ({ apiEndpoint, method }) => {
   const [files, setFiles] = useState([]);
 
   const handleFilesAdded = (newFiles) => {
@@ -16,23 +17,26 @@ const UploadPage = ({ apiEndpoint }) => {
       formData.append('files', file);
     });
 
-    // TODO: Change to backend endpoint
-    // TODO: Change to apiEndpoint and use axios
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      const requestOptions = {
+        method: method,
+        data: formData,
+        url: apiEndpoint,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      console.log("requestOptions", requestOptions);
+      const response = await axios(requestOptions);
 
       if (response.ok) {
         alert('Archivos subidos correctamente!');
         setFiles([]); // Clear the files after successful upload
       } else {
-        alert('No se pudieron subir los archivos.');
+        alert('Error al subir archivos.');
       }
     } catch (error) {
       console.error('Error al subir archivos:', error);
-      alert('Error al subir archivos.');
     }
   };
 
