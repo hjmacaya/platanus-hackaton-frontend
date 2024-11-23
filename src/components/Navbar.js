@@ -1,17 +1,18 @@
 'use client'
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-primary p-6">
+    <nav className="fixed top-0 left-0 right-0 flex items-center justify-between flex-wrap bg-primary p-8">
       {/* Left Side: Logo and App Name */}
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         {/* Replace with your logo image */}
-        <img src="/logo.jpeg" alt="Logo" className="h-8 w-8 mr-2" />
+        <Image src="/logo.jpeg" alt="Logo" className="h-8 w-8 mr-2" width={32} height={32} />
         <span className="font-semibold text-xl tracking-tight">MeAyudAI</span>
       </div>
 
@@ -31,13 +32,13 @@ const Navbar = () => {
       </div>
       <div className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${!isMenuOpen && 'hidden'} lg:block`}>
         <div className="text-sm lg:flex-grow lg:flex lg:justify-end ml-6">
-          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4" href="/">
+          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4 font-bold text-base" href="/">
             Inicio
           </Link>
-          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4" href="/guidelines">
+          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4 font-bold text-base" href="/guidelines">
             Pautas
           </Link>
-          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4" href="/uiResources">
+          <Link className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-neutral mr-4 font-bold text-base" href="/uiResources">
             UI Resources
           </Link>
         </div>
