@@ -21,14 +21,18 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
       formData.append('file', files[0]);
     }
 
+    // Get the axios headers
+    const headers = axios.defaults.headers.common;
+    
+    // Add the Content-Type header to the headers object
+    headers['Content-Type'] = 'multipart/form-data';
+
     try {
       const requestOptions = {
         method: method,
         data: formData,
         url: apiEndpoint,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        headers: headers
       }
       console.log(requestOptions);
       const response = await axios(requestOptions);
