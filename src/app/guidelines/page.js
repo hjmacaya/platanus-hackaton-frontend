@@ -1,6 +1,19 @@
+'use client';
 import { UploadPage } from '@/components/UploadPage';
 import { GuidelineCard } from '@/components/cards';
+import { Table } from '@/components/tables';
 export default function GuidelinesPage() {
+
+  // Table actions
+  const handleView = (guideline) => {
+    console.log("Viewing guideline:", guideline);
+  }
+  const handleEdit = (guideline) => {
+    console.log("Editing guideline:", guideline);
+  }
+  const handleDelete = (guideline) => {
+    console.log("Deleting guideline:", guideline);
+  }
 
   const guidelinesMock = [
     {
@@ -31,8 +44,19 @@ export default function GuidelinesPage() {
   ]
   return (
     <div>
+      {/* Drag and Drop Upload */}
       <UploadPage apiEndpoint="/api/guidelines" method="POST" />
 
+      {/* Guidelines Table */}
+      <Table 
+        data={guidelinesMock} 
+        styleVariant="style1" 
+        onView={handleView}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      {/* Guidelines Cards */}
       <div className="flex justify-center items-center my-4">
         <h1 className="text-2xl font-bold">Tus pautas</h1>
       </div>
