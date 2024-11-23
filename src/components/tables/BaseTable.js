@@ -10,7 +10,7 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete }) => {
   const headers = Object.keys(data[0]);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto mx-10">
       <table className={`min-w-full ${getTableStyles(styleVariant)}`}>
         <thead>
           <tr>

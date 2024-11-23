@@ -50,7 +50,7 @@ export default function GuidelinesPage() {
       {/* Guidelines Table */}
       <Table 
         data={guidelinesMock} 
-        styleVariant="style1" 
+        styleVariant="style2" 
         onView={handleView}
         onEdit={handleEdit}
         onDelete={handleDelete}
