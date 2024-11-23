@@ -1,13 +1,17 @@
 'use client';
 import { UploadPage } from '@/components/UploadPage';
 import { Table } from '@/components/tables';
+import { useRouter, useParams } from 'next/navigation';
 import { configFile } from '../../../../config';
 
 export default function GuidelinesPage() {
+  const router = useRouter();
+  const params = useParams();
 
   // Table actions
   const handleView = (test) => {
-    console.log("Viewing test:", test);
+    // Go to the test page
+    router.push(`/guidelines/${params.guideline_id}/tests/${test.id}`);
   }
   const handleEdit = (test) => {
     console.log("Editing test:", test);
