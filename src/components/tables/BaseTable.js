@@ -37,28 +37,28 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDe
                 <div className="flex justify-center space-x-2">
                   <button
                     onClick={() => onView(row)}
-                    className="text-blue-600 hover:text-blue-800"
+                    className="text-blue-600 hover:text-blue-800 text-lg"
                     title="View"
                   >
                     <FaEye />
                   </button>
                   <button
                     onClick={() => onEdit(row)}
-                    className="text-yellow-600 hover:text-yellow-800"
+                    className="text-yellow-600 hover:text-yellow-800 text-lg"
                     title="Edit"
                   >
                     <FaEdit />
                   </button>
                   <button
                     onClick={() => onDownload(row)}
-                    className="text-green-600 hover:text-green-800"
+                    className="text-green-600 hover:text-green-800 text-lg"
                     title="Download"
                   >
                     <FaDownload />
                   </button>
                   <button
                     onClick={() => onDelete(row)}
-                    className="text-red-600 hover:text-red-800"
+                    className="text-red-600 hover:text-red-800 text-lg"
                     title="Delete"
                   >
                     <FaTrash />
