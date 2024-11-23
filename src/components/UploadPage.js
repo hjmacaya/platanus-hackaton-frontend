@@ -5,6 +5,7 @@ import DragAndDrop from '../components/DragAndDrop';
 
 const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
   const [files, setFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFilesAdded = (newFiles) => {
     setFiles((currentFiles) => [...currentFiles, ...newFiles]);
@@ -29,6 +30,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
     headers['Access-Control-Allow-Origin'] = '*';
 
     try {
+      setIsLoading(true);
       const requestOptions = {
         method: method,
         data: formData,
@@ -46,6 +48,8 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
       }
     } catch (error) {
       console.error('Error al subir archivos:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -58,7 +62,21 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Sube tus {elementToDrop}</h1>
-      <DragAndDrop onFilesAdded={handleFilesAdded} />
+
+      
+      {/* Wrap DragAndDrop in a div that will show the loading animation */}
+      <div className={`relative rounded-lg ${isLoading ? 'border-2 border-primary animate-pulse' : ''}`}>
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-10">
+            <div className="flex flex-col items-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+              <p className="mt-2 text-primary font-semibold">Subiendo archivos...</p>
+            </div>
+          </div>
+        )}
+        <DragAndDrop onFilesAdded={handleFilesAdded} />
+      </div>
+
       {files.length > 0 && (
         <div className="mt-6">
           <h2 className="text-xl font-semibold mb-2">Archivos a subir:</h2>

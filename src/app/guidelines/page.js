@@ -56,8 +56,18 @@ export default function GuidelinesPage() {
   ]
   return (
     <div>
+      {/* {isUploading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      )} */}
+
       {/* Drag and Drop Upload */}
-      <UploadPage apiEndpoint={`${configFile.API_BASE_URL}/pauta/`} method="POST" />
+      <UploadPage 
+        apiEndpoint={`${configFile.API_BASE_URL}/pauta/`} 
+        method="POST"
+        elementToDrop="pautas"
+      />
 
       {/* Guidelines Table */}
       <div className="flex justify-center items-center my-4">
