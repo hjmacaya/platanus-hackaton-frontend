@@ -6,6 +6,7 @@ import DragAndDrop from '../components/DragAndDrop';
 const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [resetDropzone, setResetDropzone] = useState(false);
 
   const handleFilesAdded = (newFiles) => {
     setFiles((currentFiles) => [...currentFiles, ...newFiles]);
@@ -37,17 +38,19 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
         url: apiEndpoint,
         headers: headers
       }
-      console.log(requestOptions);
       const response = await axios(requestOptions);
 
       if (response.status === 200) {
         alert('Archivos subidos correctamente!');
         setFiles([]); // Clear the files after successful upload
+        setResetDropzone(true);
       } else {
         alert('Error al subir archivos.');
       }
     } catch (error) {
       console.error('Error al subir archivos:', error);
+      setResetDropzone(prev => !prev);
+      setFiles([]);
     } finally {
       setIsLoading(false);
     }
@@ -74,7 +77,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
             </div>
           </div>
         )}
-        <DragAndDrop onFilesAdded={handleFilesAdded} />
+        <DragAndDrop onFilesAdded={handleFilesAdded} resetFiles={resetDropzone} />
       </div>
 
       {files.length > 0 && (

@@ -1,7 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-const DragAndDrop = ({ onFilesAdded }) => {
+const DragAndDrop = ({ onFilesAdded, resetFiles }) => {
+  // Local state for accepted and rejected files
+  const [acceptedFileItems, setAcceptedFileItems] = useState([]);
+  const [fileRejectionItems, setFileRejectionItems] = useState([]);
+
   // Set the onDrop callback
   const onDrop = useCallback(
     (acceptedFiles, rejectedFiles) => {
@@ -9,18 +13,15 @@ const DragAndDrop = ({ onFilesAdded }) => {
       if (onFilesAdded) {
         onFilesAdded(acceptedFiles);
       }
+      // Update local state
+      setAcceptedFileItems(acceptedFiles);
+      setFileRejectionItems(rejectedFiles);
     },
     [onFilesAdded]
   );
 
   // UseDropzone hook
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    acceptedFiles,
-    fileRejections,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
       'image/*': ['.png', '.jpg', '.jpeg'],
@@ -29,17 +30,25 @@ const DragAndDrop = ({ onFilesAdded }) => {
     multiple: true,
   });
 
+  // Reset files when resetFiles changes
+  useEffect(() => {
+    if (resetFiles) {
+      setAcceptedFileItems([]);
+      setFileRejectionItems([]);
+    }
+  }, [resetFiles]);
+
   // Display accepted files
-  const acceptedFileItems = acceptedFiles.map((file) => (
-    <li key={file.path} className="text-green-600">
-      {file.path} - {file.size} bytes
+  const acceptedFilesList = acceptedFileItems.map((file) => (
+    <li key={file.path || file.name} className="text-green-600">
+      {file.name} - {file.size} bytes
     </li>
   ));
 
   // Display rejected files
-  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-    <li key={file.path} className="text-red-600">
-      {file.path} - {file.size} bytes
+  const fileRejectionItemsList = fileRejectionItems.map(({ file, errors }) => (
+    <li key={file.path || file.name} className="text-red-600">
+      {file.name} - {file.size} bytes
       <ul>
         {errors.map((e) => (
           <li key={e.code} className="text-red-500">
@@ -66,16 +75,16 @@ const DragAndDrop = ({ onFilesAdded }) => {
         </p>
       )}
       <aside className="mt-4">
-        {acceptedFiles.length > 0 && (
+        {acceptedFileItems.length > 0 && (
           <>
             <h4 className="font-semibold">Archivos aceptados</h4>
-            <ul>{acceptedFileItems}</ul>
+            <ul>{acceptedFilesList}</ul>
           </>
         )}
-        {fileRejections.length > 0 && (
+        {fileRejectionItems.length > 0 && (
           <>
             <h4 className="font-semibold mt-2">Archivos rechazados</h4>
-            <ul>{fileRejectionItems}</ul>
+            <ul>{fileRejectionItemsList}</ul>
           </>
         )}
       </aside>
