@@ -14,7 +14,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
   const handleUpload = async () => {
     const formData = new FormData();
     files.forEach((file) => {
-      formData.append('file', file);
+      formData.append('files', file);
     });
 
     try {
@@ -26,6 +26,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
           'Content-Type': 'multipart/form-data'
         }
       }
+      console.log(requestOptions);
       const response = await axios(requestOptions);
 
       if (response.status === 200) {

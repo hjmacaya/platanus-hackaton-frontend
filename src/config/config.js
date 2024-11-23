@@ -1,10 +1,8 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const configFile = {
-  API_BASE_URL: process.env.API_BASE_URL
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL
 }
+
+console.log("Config file:", configFile);
 
 export {
   configFile
