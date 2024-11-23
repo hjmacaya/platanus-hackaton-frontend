@@ -49,6 +49,12 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
     }
   };
 
+  const handleRemoveFile = (fileToRemove) => {
+    setFiles(currentFiles => 
+      currentFiles.filter(file => file.path !== fileToRemove.path || file.name !== fileToRemove.name)
+    );
+  };
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Sube tus {elementToDrop}</h1>
@@ -58,8 +64,15 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
           <h2 className="text-xl font-semibold mb-2">Archivos a subir:</h2>
           <ul className="list-disc list-inside">
             {files.map((file) => (
-              <li key={file.path || file.name}>
-                {file.name} - {file.size} bytes
+              <li key={file.path || file.name} className="flex items-center justify-start mb-2">
+                <span>{file.name} - {file.size} bytes</span>
+                <button 
+                  onClick={() => handleRemoveFile(file)}
+                  className="ml-2 text-red-500 hover:text-red-700 text-xl text-bold"
+                  aria-label="Eliminar archivo"
+                >
+                  ✕
+                </button>
               </li>
             ))}
           </ul>
