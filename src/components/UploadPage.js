@@ -24,8 +24,9 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
     // Get the axios headers
     const headers = axios.defaults.headers.common;
     
-    // Add the Content-Type header to the headers object
+    // Add the Content-Type, Access-Control-Allow-Origin header to the headers object
     headers['Content-Type'] = 'multipart/form-data';
+    headers['Access-Control-Allow-Origin'] = '*';
 
     try {
       const requestOptions = {
