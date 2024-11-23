@@ -1,7 +1,7 @@
 'use client';
-import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaEye, FaDownload } from 'react-icons/fa';
 
-const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete }) => {
+const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDelete }) => {
   if (!data || data.length === 0) {
     return <p className="text-center">No data available.</p>;
   }
@@ -48,6 +48,13 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete }) => {
                     title="Edit"
                   >
                     <FaEdit />
+                  </button>
+                  <button
+                    onClick={() => onDownload(row)}
+                    className="text-green-600 hover:text-green-800"
+                    title="Download"
+                  >
+                    <FaDownload />
                   </button>
                   <button
                     onClick={() => onDelete(row)}

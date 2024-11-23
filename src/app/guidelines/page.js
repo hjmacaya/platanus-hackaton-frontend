@@ -11,11 +11,13 @@ export default function GuidelinesPage() {
   const handleView = (guideline) => {
     // Go to the guideline page
     router.push(`/guidelines/${guideline.id}`);
-  
   }
   const handleEdit = (guideline) => {
     console.log("Editing guideline:", guideline);
   }
+  const handleDownload = (guideline) => {
+    console.log("Downloading guideline:", guideline);
+  };
   const handleDelete = (guideline) => {
     console.log("Deleting guideline:", guideline);
   }
@@ -23,33 +25,33 @@ export default function GuidelinesPage() {
   const guidelinesMock = [
     { 
       id: 1,
-      title: "Pauta 1",
-      text: "Pauta de la Interrogación 1 de Ciencias Naturales",
-      link: "/guidelines/1"
+      nombre: "Pauta 1",
+      descripcion: "Pauta de la Interrogación 1 de Ciencias Naturales",
+      fecha: "2024-01-01",
     },
     {
       id: 2,
-      title: "Pauta 2",
-      text: "Pauta de la Interrogación 2 de Ciencias Naturales",
-      link: "/guidelines/2"
+      nombre: "Pauta 2",
+      descripcion: "Pauta de la Interrogación 2 de Ciencias Naturales",
+      fecha: "2024-01-01",
     },
     {
       id: 3,
-      title: "Pauta 3",
-      text: "Pauta del Examen de Ciencias Naturales",
-      link: "/guidelines/3"
+      nombre: "Pauta 3",
+      descripcion: "Pauta del Examen de Ciencias Naturales",
+      fecha: "2024-01-01",
     },
     {
       id: 4,
-      title: "Pauta 4",
-      text: "Pauta de la Interrogación 1 de Matemáticas",
-      link: "/guidelines/4"
+      nombre: "Pauta 4",
+      descripcion: "Pauta de la Interrogación 1 de Matemáticas",
+      fecha: "2024-01-01",
     },
     {
       id: 5,
-      title: "Pauta 5",
-      text: "Pauta de la Interrogación 2 de Matemáticas",
-      link: "/guidelines/5"
+      nombre: "Pauta 5",
+      descripcion: "Pauta de la Interrogación 2 de Matemáticas",
+      fecha: "2024-01-01",
     }
   ]
   return (
@@ -66,6 +68,7 @@ export default function GuidelinesPage() {
         styleVariant="style2" 
         onView={handleView}
         onEdit={handleEdit}
+        onDownload={handleDownload}
         onDelete={handleDelete}
       />
 
