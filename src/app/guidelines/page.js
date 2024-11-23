@@ -48,6 +48,9 @@ export default function GuidelinesPage() {
       <UploadPage apiEndpoint="/api/guidelines" method="POST" />
 
       {/* Guidelines Table */}
+      <div className="flex justify-center items-center my-4">
+        <h1 className="text-2xl font-bold">Tus pautas</h1>
+      </div>
       <Table 
         data={guidelinesMock} 
         styleVariant="style2" 
@@ -57,14 +60,11 @@ export default function GuidelinesPage() {
       />
 
       {/* Guidelines Cards */}
-      <div className="flex justify-center items-center my-4">
-        <h1 className="text-2xl font-bold">Tus pautas</h1>
-      </div>
-      <div className="flex flex-row items-center justify-evenly flex-wrap gap-4">
+      {/* <div className="flex flex-row items-center justify-evenly flex-wrap gap-4">
         {guidelinesMock.map((guideline, index) => (
           <GuidelineCard key={index} {...guideline} />
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }
