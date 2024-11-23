@@ -4,54 +4,59 @@ import { Table } from '@/components/tables';
 export default function GuidelinesPage() {
 
   // Table actions
-  const handleView = (guideline) => {
-    console.log("Viewing guideline:", guideline);
+  const handleView = (test) => {
+    console.log("Viewing test:", test);
   }
-  const handleEdit = (guideline) => {
-    console.log("Editing guideline:", guideline);
+  const handleEdit = (test) => {
+    console.log("Editing test:", test);
   }
-  const handleDelete = (guideline) => {
-    console.log("Deleting guideline:", guideline);
+  const handleDelete = (test) => {
+    console.log("Deleting test:", test);
   }
 
-  const guidelinesMock = [
+  const testsMock = [
     {
-      title: "Pauta 1",
-      text: "Pauta de la Interrogación 1 de Ciencias Naturales",
-      link: "/guidelines/1"
+      id: 1,
+      title: "Prueba de Pepito Perez",
+      text: "Prueba de Pepito Perez",
+      link: "/tests/1"
     },
     {
-      title: "Pauta 2",
-      text: "Pauta de la Interrogación 2 de Ciencias Naturales",
-      link: "/guidelines/2"
+      id: 2,
+      title: "Prueba de Maria Gomez",
+      text: "Test de Matemáticas",
+      link: "/tests/2"
     },
     {
-      title: "Pauta 3",
-      text: "Pauta del Examen de Ciencias Naturales",
-      link: "/guidelines/3"
+      id: 3,
+      title: "Prueba de Juan Pérez",
+      text: "Test de Historia",
+      link: "/tests/3"
     },
     {
-      title: "Pauta 4",
-      text: "Pauta de la Interrogación 1 de Matemáticas",
-      link: "/guidelines/4"
+      id: 4,
+      title: "Prueba de Ana Gomez",
+      text: "Test de Lengua",
+      link: "/tests/4"
     },
     {
-      title: "Pauta 5",
-      text: "Pauta de la Interrogación 2 de Matemáticas",
-      link: "/guidelines/5"
+      id: 5,
+      title: "Prueba de Pedro Gomez",
+      text: "Test de Inglés",
+      link: "/tests/5"
     }
   ]
   return (
     <div>
       {/* Drag and Drop Upload */}
-      <UploadPage apiEndpoint="/api/guidelines" method="POST" />
+      <UploadPage apiEndpoint="/pruebas" method="POST" elementToDrop="pruebas" />
 
       {/* Tests Table */}
       <div className="flex justify-center items-center my-4">
-        <h1 className="text-2xl font-bold">Tus pautas</h1>
+        <h1 className="text-2xl font-bold">Tus Pruebas</h1>
       </div>
       <Table 
-        data={guidelinesMock} 
+        data={testsMock} 
         styleVariant="style2" 
         onView={handleView}
         onEdit={handleEdit}

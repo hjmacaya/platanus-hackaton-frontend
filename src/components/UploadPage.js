@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import DragAndDrop from '../components/DragAndDrop';
 
-const UploadPage = ({ apiEndpoint, method }) => {
+const UploadPage = ({ apiEndpoint, method, elementToDrop }) => {
   const [files, setFiles] = useState([]);
 
   const handleFilesAdded = (newFiles) => {
@@ -41,7 +41,7 @@ const UploadPage = ({ apiEndpoint, method }) => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Sube tus pautas</h1>
+      <h1 className="text-2xl font-bold mb-4">Sube tus {elementToDrop}</h1>
       <DragAndDrop onFilesAdded={handleFilesAdded} />
       {files.length > 0 && (
         <div className="mt-6">
