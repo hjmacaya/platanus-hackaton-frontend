@@ -62,8 +62,8 @@ const DragAndDrop = ({ onFilesAdded, resetFiles }) => {
   return (
     <div
       {...getRootProps()}
-      className={`border-dashed border-4 p-6 rounded-md text-center cursor-pointer ${
-        isDragActive ? 'border-blue-500' : 'border-gray-400'
+      className={`border-dashed border-4 p-6 rounded-md text-center cursor-pointer relative z-0 ${
+        isDragActive ? 'border-secondary-500' : 'border-gray-400'
       }`}
     >
       <input {...getInputProps()} />
