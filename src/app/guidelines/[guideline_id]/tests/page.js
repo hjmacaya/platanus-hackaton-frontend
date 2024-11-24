@@ -42,30 +42,6 @@ export default function GuidelinesPage() {
     fetchTests();
   }, []);
 
-  const testsMock = [
-    {
-      id: 1,
-      nombre: "Prueba de Pepito Perez",
-      puntajeTotal: "80/100",
-      desempeño: "80%",
-      link: "/tests/1"
-    },
-    {
-      id: 2,
-      nombre: "Prueba de Maria Gomez",
-      puntajeTotal: "80/100",
-      desempeño: "80%",
-      link: "/tests/2"
-    },
-    {
-      id: 3,
-      nombre: "Prueba de Juan Pérez",
-      puntajeTotal: "80/100",
-      desempeño: "80%",
-      link: "/tests/3"
-    }
-  ]
-
   const showTable = tests?.data?.length > 0;
   const headersToIgnore = ['created_at', 'guideline_id', 's3_link', 'positional_index', 's3_filename', 'student_id', 'id'];
   const headersMapping = {

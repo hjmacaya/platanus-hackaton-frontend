@@ -1,6 +1,6 @@
 'use client';
 import { PrimaryButton, SecondaryButton, ThirdButton, ForthButton } from "@/components/buttons";
-import { BaseCard } from "@/components/cards";
+import { BaseCard, UltimateCard } from "@/components/cards";
 import { QuestionAccordion, QuestionDetailCard } from '@/components/questions';
 
 export default function UiResources() {
@@ -66,6 +66,16 @@ export default function UiResources() {
     guidelineJustification: null,
   }
 
+  const ultimateCardMockData = {
+    questionNumber: 1,  
+    questionType: "development",
+    question: "¿Cuál es tu comida favorita?",
+    guidelineAnswer: "Pizza",
+    studentAnswer: "Hamburguesa",
+    studentScore: 4.6,
+    modelFeedback: "Pizza",
+  }
+
   return (
     <div className="min-h-full">
       <h1 className="text-4xl font-bold text-center">UI Resources</h1>
@@ -89,6 +99,7 @@ export default function UiResources() {
       <div className="flex flex-col items-center justify-center gap-2 my-5">
         <QuestionAccordion questionData={questionMockData} />
         <QuestionDetailCard {...questionMockData} />
+        <UltimateCard {...ultimateCardMockData} />
       </div>
     </div>
   )
