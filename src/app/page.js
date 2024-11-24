@@ -52,10 +52,10 @@ const LandingPage = () => {
             <div className="w-full sm:w-1/2 p-3 flex flex-col justify-center">
               <div className="align-middle">
                 <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
-                  Basta de calculos, lo hacemos por ti
+                  Enfócate en lo que realmente importa, tus alumnos
                 </h3>
                 <p className="text-gray-600 mb-8">
-                  Sin importar el tipo de calculo que necesites para asignar notas a tus alumnos, en Meatudai lo hacemos por ti.
+                  Obtiene información sobre las fortalezas y debilidades de tus alumnos.
                 </p>
               </div>
             </div>
