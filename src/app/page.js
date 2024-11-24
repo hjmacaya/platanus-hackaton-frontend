@@ -16,9 +16,9 @@ const LandingPage = () => {
             ></div>
           </div>
 
-          {/* Div 1 */}
-          <div className="flex flex-wrap">
-            <div className="w-5/6 sm:w-1/2 p-3">
+          <div className="flex flex-wrap items-center">
+            {/* Div 1 */}
+            <div className="w-5/6 sm:w-1/2 p-3 flex flex-col justify-center">
               <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
                 No más noches de correciones
               </h3>
@@ -27,7 +27,7 @@ const LandingPage = () => {
               </p>
             </div>
 
-          {/* Div 2 */}
+            {/* Div 2 */}
             <div className="w-full sm:w-1/2 p-3">
               <Image 
                 src="/happy_teacher_woman_bgremoved.png" 
@@ -39,7 +39,7 @@ const LandingPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div className="flex flex-wrap flex-col-reverse sm:flex-row items-center">
           <div className="w-full sm:w-1/2 p-3">
             <Image 
                 src="/sad_teacher_man_bgremoved.png" 
@@ -49,7 +49,7 @@ const LandingPage = () => {
                 height={650}
               />
             </div>
-            <div className="w-full sm:w-1/2 p-3">
+            <div className="w-full sm:w-1/2 p-3 flex flex-col justify-center">
               <div className="align-middle">
                 <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
                   Basta de calculos, lo hacemos por ti
