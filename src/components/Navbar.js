@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 flex items-center justify-between flex-wrap bg-primary p-8">
+    <nav className="fixed top-0 left-0 right-0 flex items-center justify-between flex-wrap bg-primary p-8 z-50">
       {/* Left Side: Logo and App Name */}
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         {/* Replace with your logo image */}
