@@ -29,8 +29,8 @@ export default function GuidelinesPage() {
   const fetchGuidelines = async () => {
     try {
       const guidelines = await getAllGuidelines();
-      console.log("Guidelines:", guidelines);
       setAllGuidelines(guidelines);
+      console.log("Guidelines:", guidelines);
     } catch (error) {
       console.error('Error fetching guidelines:', error);
     }
@@ -40,38 +40,48 @@ export default function GuidelinesPage() {
     fetchGuidelines();
   }, []);
 
-  const guidelinesMock = [
-    { 
-      id: 1,
-      nombre: "Pauta 1",
-      descripcion: "Pauta de la Interrogación 1 de Ciencias Naturales",
-      fecha: "2024-01-01",
-    },
-    {
-      id: 2,
-      nombre: "Pauta 2",
-      descripcion: "Pauta de la Interrogación 2 de Ciencias Naturales",
-      fecha: "2024-01-01",
-    },
-    {
-      id: 3,
-      nombre: "Pauta 3",
-      descripcion: "Pauta del Examen de Ciencias Naturales",
-      fecha: "2024-01-01",
-    },
-    {
-      id: 4,
-      nombre: "Pauta 4",
-      descripcion: "Pauta de la Interrogación 1 de Matemáticas",
-      fecha: "2024-01-01",
-    },
-    {
-      id: 5,
-      nombre: "Pauta 5",
-      descripcion: "Pauta de la Interrogación 2 de Matemáticas",
-      fecha: "2024-01-01",
-    }
-  ]
+  const showTable = allGuidelines?.data?.length > 0;
+
+  const headersToIgnore = ['id', 'created_at', 's3_link', 'professor_id'];
+  const headersMapping = {
+    "max_score": "Puntaje máximo",
+    "title": "Título",
+    "topic": "Tema",
+  }
+
+  // const guidelinesMock = [
+  //   { 
+  //     id: 1,
+  //     nombre: "Pauta 1",
+  //     descripcion: "Pauta de la Interrogación 1 de Ciencias Naturales",
+  //     fecha: "2024-01-01",
+  //   },
+  //   {
+  //     id: 2,
+  //     nombre: "Pauta 2",
+  //     descripcion: "Pauta de la Interrogación 2 de Ciencias Naturales",
+  //     fecha: "2024-01-01",
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: "Pauta 3",
+  //     descripcion: "Pauta del Examen de Ciencias Naturales",
+  //     fecha: "2024-01-01",
+  //   },
+  //   {
+  //     id: 4,
+  //     nombre: "Pauta 4",
+  //     descripcion: "Pauta de la Interrogación 1 de Matemáticas",
+  //     fecha: "2024-01-01",
+  //   },
+  //   {
+  //     id: 5,
+  //     nombre: "Pauta 5",
+  //     descripcion: "Pauta de la Interrogación 2 de Matemáticas",
+  //     fecha: "2024-01-01",
+  //   }
+  // ]
+
   return (
     <div>
       {/* {isUploading && (
@@ -91,14 +101,19 @@ export default function GuidelinesPage() {
       <div className="flex justify-center items-center my-4">
         <h1 className="text-2xl font-bold">Tus pautas</h1>
       </div>
-      <Table 
-        data={allGuidelines?.length > 0 ? allGuidelines : guidelinesMock} 
-        styleVariant="style2" 
-        onView={handleView}
-        onEdit={handleEdit}
-        onDownload={handleDownload}
-        onDelete={handleDelete}
-      />
+
+      {showTable && ( 
+        <Table 
+          data={allGuidelines.data} 
+          styleVariant="style2" 
+          onView={handleView}
+          onEdit={handleEdit}
+          onDownload={handleDownload}
+          onDelete={handleDelete}
+          headersToIgnore={headersToIgnore}
+          headersMapping={headersMapping}
+        />
+      )}
     </div>
   )
 }
