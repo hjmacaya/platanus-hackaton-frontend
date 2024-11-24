@@ -82,9 +82,9 @@ export default function GuidelinesPage() {
         <h1 className="text-2xl font-bold">Tus Pruebas</h1>
       </div>
       {showTable && (
-        <Table 
-          data={tests.data} 
-          styleVariant="style2" 
+        <Table
+          data={tests.data}
+          styleVariant="style2"
           onView={handleView}
           onEdit={handleEdit}
           onDelete={handleDelete}

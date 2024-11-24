@@ -6,10 +6,8 @@ const QuestionCard = ({
   question,
   guidelineAnswer,
   studentAnswer,
-  score,
-  alternatives,
-  studentJustification,
-  guidelineJustification
+  studentScore,
+  modelFeedback,
 }) => {
   // Function to determine badge color based on question type
   const getBadgeColor = (type) => {
@@ -27,12 +25,8 @@ const QuestionCard = ({
     }
   };
 
-  const typeTranslation = {
-    multipleChoice: "Selección múltiple",
-    trueOrFalse: "Verdadero o Falso",
-    shortAnswer: "Respuesta corta",
-    development: "Desarrollo",
-  }
+
+  console.log('studentScore:', studentScore);
 
   return (
     <div className="bg-white border border-gray-200 shadow-md rounded-md p-6 space-y-6 w-[600px] mx-auto">
@@ -48,7 +42,7 @@ const QuestionCard = ({
           {/* Score */}
           <div>
             <span className="text-gray-600">Puntaje:</span>{' '}
-            <span className="font-semibold">{score}</span>
+            <span className="font-semibold">{studentScore}</span>
           </div>
           {/* Question Type Badge */}
           <div>
@@ -57,43 +51,17 @@ const QuestionCard = ({
                 questionType
               )}`}
             >
-              {typeTranslation[questionType]}
+              {questionType}
             </span>
           </div>
         </div>
         {/* Right Div (2/3) */}
-        <div className="w-2/3 flex flex-col justify-center">
-          <h3 className="text-lg font-semibold mb-2">Pregunta: {question}</h3>
-          
-          {/* Check for alternatives */}
-          {alternatives && Object.entries(alternatives).map(([ key, value ]) => (
-            <div key={key}>
-              <span className="font-semibold">{key}:</span> {value}
-            </div>
-          ) )}
-        </div>
       </div>
 
       {/* Div 2: Expected Answer */}
       <div className="pb-6 border-b border-gray-200">
         <h3 className="text-lg font-semibold mb-2">Respuesta esperada</h3>
         <p className="text-gray-800">{guidelineAnswer}</p>
-
-        {/* Check if it is true or false */}
-        {guidelineJustification && (
-          <p className="text-gray-800">{guidelineJustification}</p>
-        )}
-      </div>
-
-      {/* Div 3: Student's Answer */}
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Respuesta del estudiante</h3>
-        <p className="text-gray-800">{studentAnswer}</p>
-
-        {/* Check if it is true or false */}
-        {studentJustification && (
-          <p className="text-gray-800">{studentJustification}</p>
-        )}
       </div>
     </div>
   );
