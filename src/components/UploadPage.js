@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import DragAndDrop from '../components/DragAndDrop';
 
-const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
+const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false, fetchFunction }) => {
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [resetDropzone, setResetDropzone] = useState(false);
@@ -44,6 +44,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
         alert('Archivos subidos correctamente!');
         setFiles([]); // Clear the files after successful upload
         setResetDropzone(true);
+        fetchFunction();
       } else {
         alert('Error al subir archivos.');
       }

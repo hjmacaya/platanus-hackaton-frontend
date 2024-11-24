@@ -57,6 +57,7 @@ export default function GuidelinesPage() {
         apiEndpoint={`${configFile.API_BASE_URL}/saveFile/`} 
         method="POST"
         elementToDrop="pautas"
+        fetchFunction={fetchGuidelines}
       />
 
       {/* Guidelines Table */}
