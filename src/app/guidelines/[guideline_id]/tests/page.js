@@ -65,6 +65,13 @@ export default function GuidelinesPage() {
       link: "/tests/3"
     }
   ]
+
+  const showTable = tests.data.length > 0;
+  const headersToIgnore = ['created_at', 'guideline_id', 's3_link', 'positional_index', 's3_filename', 'student_id', 'id'];
+  const headersMapping = {
+    'title': 'Título',
+    'student_score': 'Puntaje alumno',
+  };
   return (
     <div>
       {/* Drag and Drop Upload */}
@@ -74,14 +81,17 @@ export default function GuidelinesPage() {
       <div className="flex justify-center items-center my-4">
         <h1 className="text-2xl font-bold">Tus Pruebas</h1>
       </div>
-      <Table 
-        data={testsMock} 
-        styleVariant="style2" 
-        onView={handleView}
-        onEdit={handleEdit}
-        onDownload={handleDownload}
-        onDelete={handleDelete}
-      />
+      {showTable && (
+        <Table 
+          data={tests.data} 
+          styleVariant="style2" 
+          onView={handleView}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          headersToIgnore={headersToIgnore}
+          headersMapping={headersMapping}
+        />
+      )}
     </div>
   )
 }

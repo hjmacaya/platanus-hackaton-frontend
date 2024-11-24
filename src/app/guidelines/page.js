@@ -108,7 +108,6 @@ export default function GuidelinesPage() {
           styleVariant="style2" 
           onView={handleView}
           onEdit={handleEdit}
-          onDownload={handleDownload}
           onDelete={handleDelete}
           headersToIgnore={headersToIgnore}
           headersMapping={headersMapping}
