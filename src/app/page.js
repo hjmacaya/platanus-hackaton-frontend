@@ -8,7 +8,7 @@ const LandingPage = () => {
           <h2
             className="w-full text-5xl font-black leading-tight text-center text-gray-800 mb-5"
           >
-            Tu enseña, nosotros corregimos 😉
+            Tú enseña, nosotros corregimos 😉
           </h2>
           <div className="w-full mb-4">
             <div

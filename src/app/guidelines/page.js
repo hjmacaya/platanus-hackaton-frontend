@@ -3,9 +3,12 @@ import { UploadPage } from '@/components/UploadPage';
 import { Table } from '@/components/tables';
 import { configFile } from '../../config';
 import { useRouter } from 'next/navigation';
+import { getAllGuidelines } from '../../api';
+import { useEffect, useState } from 'react';
 
 export default function GuidelinesPage() {
   const router = useRouter();
+  const [allGuidelines, setAllGuidelines] = useState([]);
 
   // Table actions
   const handleView = (guideline) => {
@@ -21,6 +24,21 @@ export default function GuidelinesPage() {
   const handleDelete = (guideline) => {
     console.log("Deleting guideline:", guideline);
   }
+
+  // Rename the function to avoid conflict with the imported function
+  const fetchGuidelines = async () => {
+    try {
+      const guidelines = await getAllGuidelines();
+      console.log("Guidelines:", guidelines);
+      setAllGuidelines(guidelines);
+    } catch (error) {
+      console.error('Error fetching guidelines:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchGuidelines();
+  }, []);
 
   const guidelinesMock = [
     { 
@@ -74,20 +92,13 @@ export default function GuidelinesPage() {
         <h1 className="text-2xl font-bold">Tus pautas</h1>
       </div>
       <Table 
-        data={guidelinesMock} 
+        data={allGuidelines?.length > 0 ? allGuidelines : guidelinesMock} 
         styleVariant="style2" 
         onView={handleView}
         onEdit={handleEdit}
         onDownload={handleDownload}
         onDelete={handleDelete}
       />
-
-      {/* Guidelines Cards */}
-      {/* <div className="flex flex-row items-center justify-evenly flex-wrap gap-4">
-        {guidelinesMock.map((guideline, index) => (
-          <GuidelineCard key={index} {...guideline} />
-        ))}
-      </div> */}
     </div>
   )
 }
