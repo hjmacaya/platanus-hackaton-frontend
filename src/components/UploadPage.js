@@ -20,6 +20,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
     if (isMultipleFiles) {
       files.forEach((file) => {
         formData.append('files', file);
+        formData.append('guideline_id', guidelineId);
       });
     } else {
       formData.append('file', files[0]);
