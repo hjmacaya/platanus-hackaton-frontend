@@ -42,7 +42,7 @@ export default function GuidelinesPage() {
 
   const showTable = allGuidelines?.data?.length > 0;
 
-  const headersToIgnore = ['id', 'created_at', 's3_link', 'professor_id'];
+  const headersToIgnore = ['id', 'created_at', 's3_link', 'professor_id', 's3_filename'];
   const headersMapping = {
     "max_score": "Puntaje máximo",
     "title": "Título",
