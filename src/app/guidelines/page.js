@@ -50,7 +50,7 @@ export default function GuidelinesPage() {
   }
 
   return (
-    <div>
+    <div className='mb-5'>
 
       {/* Drag and Drop Upload */}
       <UploadPage 
