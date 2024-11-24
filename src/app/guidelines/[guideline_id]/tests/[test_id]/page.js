@@ -18,10 +18,9 @@ export default function QuestionPage() {
 
   const fetchAllQuestions = async (guidelineId, testId) => {
     try {
-      const response = await getAllQuestionsByGuidelineId(guidelineId, testId);
-
-      setQuestions(response.data);
-      return response.data;
+      const questions = await getAllQuestionsByGuidelineId(guidelineId, testId);
+      console.log('response:', questions);
+      setQuestions(questions);
     } catch (error) {
       console.error("Error fetching questions:", error);
       return null;
@@ -66,16 +65,16 @@ export default function QuestionPage() {
   return (
     <div>
       <div className="flex flex-col gap-4 p-4">
-        {questions && questions?.map((question) => (
+        {questions && questions?.map((question, index) => (
           <UltimateCard
-            key={question.id}
-            questionNumber={question.positional_index}
-            questionType={question.type}
-            question={question.title}
-            guidelineAnswer={question.guideline_answer}
-            studentAnswer={question.student_answer}
-            studentScore={question.student_score}
-            modelFeedback={question.model_feedback}
+            key={index}
+            questionNumber={index + 1}
+            questionType="Desarrollo"
+            question={question.question}
+            guidelineAnswer={question.guidelineAnswer}
+            studentAnswer={question.studentAnswer}
+            studentScore={question.studentScore}
+            modelFeedback={question.modelFeedback}
           />
         ))}
       </div>
