@@ -1,12 +1,16 @@
 'use client'
 import axios from 'axios';
 import React, { useState } from 'react';
+import Confetti from 'react-confetti';
 import DragAndDrop from '../components/DragAndDrop';
+import { useParams } from 'next/navigation';
 
-const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
+const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false, fetchFunction }) => {
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [resetDropzone, setResetDropzone] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const params = useParams();
 
   const handleFilesAdded = (newFiles) => {
     setFiles((currentFiles) => [...currentFiles, ...newFiles]);
@@ -18,6 +22,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
     if (isMultipleFiles) {
       files.forEach((file) => {
         formData.append('files', file);
+        formData.append('guideline_id', params.guideline_id);
       });
     } else {
       formData.append('file', files[0]);
@@ -41,9 +46,13 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
       const response = await axios(requestOptions);
 
       if (response.status === 200) {
-        alert('Archivos subidos correctamente!');
+        setShowConfetti(true);
         setFiles([]); // Clear the files after successful upload
         setResetDropzone(true);
+        fetchFunction();
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 3000);
       } else {
         alert('Error al subir archivos.');
       }
@@ -64,6 +73,17 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
 
   return (
     <div className="container mx-auto p-6">
+
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={200}
+          recycle={false}
+          style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }}
+        />
+      )}
+
       <h1 className="text-2xl font-bold mb-4">Sube tus {elementToDrop}</h1>
 
       
@@ -86,7 +106,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
           <ul className="list-disc list-inside">
             {files.map((file) => (
               <li key={file.path || file.name} className="flex items-center justify-start mb-2">
-                <span>{file.name} - {file.size} bytes</span>
+                <span>{file.name}</span>
                 <button 
                   onClick={() => handleRemoveFile(file)}
                   className="ml-2 text-red-500 hover:text-red-700 text-xl text-bold"

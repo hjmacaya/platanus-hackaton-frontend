@@ -75,7 +75,13 @@ export default function GuidelinesPage() {
   return (
     <div>
       {/* Drag and Drop Upload */}
-      <UploadPage apiEndpoint={`${configFile.API_BASE_URL}/prueba/`} method="POST" elementToDrop="pruebas" isMultipleFiles={true} />
+      <UploadPage 
+        apiEndpoint={`${configFile.API_BASE_URL}/saveTest/`} 
+        method="POST" 
+        elementToDrop="pruebas" 
+        isMultipleFiles={true}
+        fetchFunction={fetchTests}
+      />
 
       {/* Tests Table */}
       <div className="flex justify-center items-center my-4">

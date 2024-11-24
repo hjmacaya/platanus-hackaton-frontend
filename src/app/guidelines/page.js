@@ -54,9 +54,10 @@ export default function GuidelinesPage() {
 
       {/* Drag and Drop Upload */}
       <UploadPage 
-        apiEndpoint={`${configFile.API_BASE_URL}/pauta/`} 
+        apiEndpoint={`${configFile.API_BASE_URL}/saveFile/`} 
         method="POST"
         elementToDrop="pautas"
+        fetchFunction={fetchGuidelines}
       />
 
       {/* Guidelines Table */}
