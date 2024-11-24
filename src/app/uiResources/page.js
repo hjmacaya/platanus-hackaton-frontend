@@ -72,7 +72,7 @@ export default function UiResources() {
     question: "¿Cuál es tu comida favorita?",
     guidelineAnswer: "Pizza",
     studentAnswer: "Hamburguesa",
-    studentScore: 4.6,
+    studentScore: 4.6, // 0 - 10
     modelFeedback: "Pizza",
   }
 

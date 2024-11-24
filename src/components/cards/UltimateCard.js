@@ -92,14 +92,22 @@ const UltimateCard = ({
 
       {/* Div 2: Expected Answer */}
       <div className="pb-6 border-b border-gray-200">
-        <h3 className="text-lg font-semibold mb-2">Respuesta esperada</h3>
-        <p className="text-gray-800">{guidelineAnswer}</p>
+        <h3 className="text-lg font-semibold mb-2">Respuesta esperada 🧑‍🏫</h3>
+        <p className="text-gray-800">➡️ {guidelineAnswer}</p>
       </div>
 
       {/* Div 3: Student Answer */}
       <div className="pb-6 border-b border-gray-200">
-        <h3 className="text-lg font-semibold mb-2">Respuesta alumno</h3>
-        <p className="text-gray-800">{studentAnswer}</p>
+        <h3 className="text-lg font-semibold mb-2">Respuesta alumno 🧐</h3>
+        <p className="text-gray-800">➡️{studentAnswer}</p>
+      </div>
+
+      {/* Div 4: Model Feedback */}
+      <div className="pb-6 border-gray-200">
+        <h3 className="text-lg font-semibold mb-2">Feedback del modelo 🤖</h3>
+        <p className="text-gray-800 typewriter">
+          ➡️ {modelFeedback}
+        </p>
       </div>
     </div>
   );
