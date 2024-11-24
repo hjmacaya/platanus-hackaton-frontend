@@ -23,10 +23,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#22092C',   // Dark Purple
-        secondary: '#872341', // Dark Red
-        tertiary: '#BE3144',    // Red
-        forth: '#F05941',   // Orange
+        primary: '#0A3981',   // Dark Blue
+        secondary: '#1F509A', // Blue
+        tertiary: '#D4EBF8',    // Light blue
+        forth: '#E38E49',   // Orange
       },
 
 

@@ -1,5 +1,7 @@
+'use client';
 import { PrimaryButton, SecondaryButton, ThirdButton, ForthButton } from "@/components/buttons";
 import { BaseCard } from "@/components/cards";
+import { QuestionAccordion, QuestionDetailCard } from '@/components/questions';
 
 export default function UiResources() {
 
@@ -51,6 +53,19 @@ export default function UiResources() {
     }
   ]
 
+  const questionMockData = {
+    id: 1,
+    questionNumber: 1,
+    question: "¿Cuál es tu comida favorita?",
+    questionType: "development",
+    guidelineAnswer: "Pizza",
+    studentAnswer: "Pizza",
+    score: 10,
+    alternatives: null,
+    studentJustification: null,
+    guidelineJustification: null,
+  }
+
   return (
     <div className="min-h-full">
       <h1 className="text-4xl font-bold text-center">UI Resources</h1>
@@ -68,6 +83,12 @@ export default function UiResources() {
         {cardsTypes.map((card, index) => (
           <BaseCard key={index} {...card} />
         ))}
+      </div>
+
+      <h2 className="text-2xl font-bold text-center"> Bolt Components </h2>
+      <div className="flex flex-col items-center justify-center gap-2 my-5">
+        <QuestionAccordion questionData={questionMockData} />
+        <QuestionDetailCard {...questionMockData} />
       </div>
     </div>
   )

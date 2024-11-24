@@ -1,7 +1,7 @@
 'use client';
 import { FaTrash, FaEdit, FaEye, FaDownload } from 'react-icons/fa';
 
-const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDelete }) => {
+const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDelete, headersToIgnore = [], headersMapping = {} }) => {
   if (!data || data.length === 0) {
     return <p className="text-center">No data available.</p>;
   }
@@ -9,12 +9,18 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDe
   // Extract table headers from object keys
   const headers = Object.keys(data[0]);
 
+  // Remove headers to ignore
+  const filteredHeaders = headers.filter(header => !headersToIgnore.includes(header));
+
+  // Map headers to custom names
+  const mappedHeaders = filteredHeaders.map(header => headersMapping[header] || header);
+
   return (
     <div className="overflow-x-auto mx-10">
       <table className={`min-w-full ${getTableStyles(styleVariant)}`}>
         <thead>
           <tr>
-            {headers.map((header) => (
+            {mappedHeaders.map((header) => (
               <th key={header} className={getHeaderCellStyles(styleVariant)}>
                 {header.charAt(0).toUpperCase() + header.slice(1)}
               </th>
@@ -28,7 +34,7 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDe
               key={idx}
               className={getRowStyles(styleVariant, idx)}
             >
-              {headers.map((header) => (
+              {filteredHeaders.map((header) => (
                 <td key={header} className={getCellStyles(styleVariant)}>
                   {row[header]}
                 </td>
@@ -37,28 +43,28 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDownload, onDe
                 <div className="flex justify-center space-x-2">
                   <button
                     onClick={() => onView(row)}
-                    className="text-blue-600 hover:text-blue-800"
+                    className="text-blue-600 hover:text-blue-800 text-lg"
                     title="View"
                   >
                     <FaEye />
                   </button>
                   <button
                     onClick={() => onEdit(row)}
-                    className="text-yellow-600 hover:text-yellow-800"
+                    className="text-yellow-600 hover:text-yellow-800 text-lg"
                     title="Edit"
                   >
                     <FaEdit />
                   </button>
                   <button
                     onClick={() => onDownload(row)}
-                    className="text-green-600 hover:text-green-800"
+                    className="text-green-600 hover:text-green-800 text-lg"
                     title="Download"
                   >
                     <FaDownload />
                   </button>
                   <button
                     onClick={() => onDelete(row)}
-                    className="text-red-600 hover:text-red-800"
+                    className="text-red-600 hover:text-red-800 text-lg"
                     title="Delete"
                   >
                     <FaTrash />

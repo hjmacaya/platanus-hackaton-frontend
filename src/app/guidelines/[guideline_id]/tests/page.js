@@ -3,10 +3,13 @@ import { UploadPage } from '@/components/UploadPage';
 import { Table } from '@/components/tables';
 import { useRouter, useParams } from 'next/navigation';
 import { configFile } from '../../../../config';
+import { useState, useEffect } from 'react';
+import { getAllTestsByGuidelineId } from '../../../../api';
 
 export default function GuidelinesPage() {
   const router = useRouter();
   const params = useParams();
+  const [tests, setTests] = useState([]);
 
   // Table actions
   const handleView = (test) => {
@@ -22,6 +25,22 @@ export default function GuidelinesPage() {
   const handleDelete = (test) => {
     console.log("Deleting test:", test);
   }
+
+  // Get all tests by guideline id
+  const fetchTests = async () => {
+    try {
+      const tests = await getAllTestsByGuidelineId(params.guideline_id);
+      console.log("Tests:", tests);
+      setTests(tests);
+    } catch (error) {
+      console.error("Error fetching tests:", error);
+    }
+  }
+
+  // Fetch tests on component mount
+  useEffect(() => {
+    fetchTests();
+  }, []);
 
   const testsMock = [
     {
