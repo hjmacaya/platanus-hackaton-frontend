@@ -16,3 +16,14 @@ export const getAllQuestionsByGuidelineId = async (guidelineId) => {
     return null;
   }
 }
+
+// Get prompitingData
+export const getPromptingData = async (guidelineId) => {
+  try {
+    const response = await axios.get(`${configFile.API_BASE_URL}/get_prompting_data/${guidelineId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al obtener los datos de prompting de la pauta con id ${guidelineId}: ${error}`);
+    return null;
+  }
+}

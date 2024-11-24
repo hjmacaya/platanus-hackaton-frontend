@@ -1,9 +1,9 @@
 "use client"
-import { QuestionCard } from "@/components/cards";
+import { QuestionCard, UltimateCard } from "@/components/cards";
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
-import { getAllQuestionsByGuidelineId, getAllStudentsAnswerByTestId } from '../../../../../api';
+import { getAllQuestionsByGuidelineId, getAllStudentsAnswerByTestId, getPromptingData } from '../../../../../api';
 
 export default function QuestionPage() {
 
@@ -13,6 +13,8 @@ export default function QuestionPage() {
 
   const [questions, setQuestions] = useState([]);
   const [studentAnswers, setStudentAnswers] = useState([]);
+  const [promptingData, setPromptingData] = useState([]);
+
 
   const fetchAllQuestions = async (guidelineId) => {
     try {
@@ -38,6 +40,17 @@ export default function QuestionPage() {
     }
   }
 
+  const fetchPromptingData = async (guidelineId) => {
+    try {
+      const response = await getPromptingData(guidelineId);
+      setPromptingData(response.data);
+      console.log('promptingData:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching prompting data:", error);
+    }
+  }
+
   const getStudentAnswerByQuestionId = (questionId) => {
     console.log('questionId:', questionId);
 
@@ -47,9 +60,25 @@ export default function QuestionPage() {
   useEffect(() => {
     fetchAllQuestions(guidelineId);
     fetchAllStudentAnswers(testId);
+    fetchPromptingData(guidelineId);
   }, []);
 
   return (
+    <div>
+      <div className="flex flex-col gap-4 p-4">
+        {promptingData && promptingData?.map((question) => (
+          <UltimateCard
+            key={question.id}
+            questionNumber={question.positional_index}
+            questionType={question.type}
+            question={question.title}
+            guidelineAnswer={question.guideline_answer}
+            studentAnswer={getStudentAnswerByQuestionId(question.id)?.content}
+            studentScore={getStudentAnswerByQuestionId(question.id)?.student_score}
+            modelFeedback={getStudentAnswerByQuestionId(question.id)?.model_feedback}
+          />
+        ))}
+      </div>
       <div className="flex flex-col gap-4 p-4">
         {questions?.map((question) => (
           <QuestionCard
@@ -64,6 +93,7 @@ export default function QuestionPage() {
           />
         ))}
       </div>
+    </div>
     // )
   )
 }
