@@ -111,3 +111,80 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
 
 export { UploadPage };
 
+// // ... existing imports ...
+// const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = false }) => {
+//   const [files, setFiles] = useState([]);
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [resetDropzone, setResetDropzone] = useState(false);
+//   const [loadingStage, setLoadingStage] = useState(0);
+//   const [currentMessage, setCurrentMessage] = useState('');
+
+//   const loadingMessages = {
+//     0: [
+//       "Iniciando el proceso de carga...",
+//       "Preparando tus archivos...",
+//       "Alistando todo para la subida...",
+//       "Comenzando la transferencia..."
+//     ],
+//     1: [
+//       "Procesando los archivos...",
+//       "Analizando el contenido...",
+//       "Verificando la información...",
+//       "Organizando los datos..."
+//     ],
+//     2: [
+//       "Finalizando la carga...",
+//       "Últimos detalles...",
+//       "Casi terminamos...",
+//       "Confirmando la transferencia..."
+//     ]
+//   };
+
+//   // Add this new function
+//   const updateLoadingMessage = () => {
+//     const messages = loadingMessages[loadingStage];
+//     const randomIndex = Math.floor(Math.random() * messages.length);
+//     setCurrentMessage(messages[randomIndex]);
+//   };
+
+//   // Modify the handleUpload function
+//   const handleUpload = async () => {
+//     setIsLoading(true);
+//     setLoadingStage(0);
+//     updateLoadingMessage();
+
+//     const formData = new FormData();
+//     // ... existing FormData setup ...
+
+//     try {
+//       // Stage 1
+//       setTimeout(() => {
+//         setLoadingStage(1);
+//         updateLoadingMessage();
+//       }, 2000);
+
+//       // Stage 2
+//       setTimeout(() => {
+//         setLoadingStage(2);
+//         updateLoadingMessage();
+//       }, 4000);
+
+//       const response = await axios(requestOptions);
+//       // ... rest of the existing try block ...
+
+//     } catch (error) {
+//       // ... existing error handling ...
+//     } finally {
+//       setIsLoading(false);
+//       setLoadingStage(0);
+//     }
+//   };
+
+//   // Update the loading message display in the JSX
+//   // ... existing code until the loading message ...
+//           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-10">
+//             <div className="flex flex-col items-center">
+//               <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+//               <p className="mt-2 text-primary font-semibold">{currentMessage}</p>
+//             </div>
+//           </div>
