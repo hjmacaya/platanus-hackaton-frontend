@@ -86,7 +86,7 @@ const UploadPage = ({ apiEndpoint, method, elementToDrop, isMultipleFiles = fals
           <ul className="list-disc list-inside">
             {files.map((file) => (
               <li key={file.path || file.name} className="flex items-center justify-start mb-2">
-                <span>{file.name} - {file.size} bytes</span>
+                <span>{file.name}</span>
                 <button 
                   onClick={() => handleRemoveFile(file)}
                   className="ml-2 text-red-500 hover:text-red-700 text-xl text-bold"

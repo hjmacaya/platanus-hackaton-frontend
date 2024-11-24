@@ -41,14 +41,14 @@ const DragAndDrop = ({ onFilesAdded, resetFiles }) => {
   // Display accepted files
   const acceptedFilesList = acceptedFileItems.map((file) => (
     <li key={file.path || file.name} className="text-green-600">
-      {file.name} - {file.size} bytes
+      {file.name}
     </li>
   ));
 
   // Display rejected files
   const fileRejectionItemsList = fileRejectionItems.map(({ file, errors }) => (
     <li key={file.path || file.name} className="text-red-600">
-      {file.name} - {file.size} bytes
+      {file.name}
       <ul>
         {errors.map((e) => (
           <li key={e.code} className="text-red-500">
