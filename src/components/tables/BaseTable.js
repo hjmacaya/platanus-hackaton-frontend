@@ -43,15 +43,15 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete, header
                 <div className="flex justify-center space-x-2">
                   <button
                     onClick={() => onView(row)}
-                    className="text-blue-600 hover:text-blue-800 text-lg"
-                    title="View"
+                    className="text-secondary hover:text-primary text-xl"
+                    title="Ver"
                   >
                     <FaEye />
                   </button>
                   <button
                     onClick={() => onEdit(row)}
-                    className="text-yellow-600 hover:text-yellow-800 text-lg"
-                    title="Edit"
+                    className="text-secondary hover:text-primary text-xl"
+                    title="Editar"
                   >
                     <FaEdit />
                   </button>
@@ -64,8 +64,8 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete, header
                   </button> */}
                   <button
                     onClick={() => onDelete(row)}
-                    className="text-red-600 hover:text-red-800 text-lg"
-                    title="Delete"
+                    className="text-secondary hover:text-primary text-xl"
+                    title="Eliminar"
                   >
                     <FaTrash />
                   </button>
