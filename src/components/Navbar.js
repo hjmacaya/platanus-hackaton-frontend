@@ -12,8 +12,8 @@ const Navbar = () => {
       {/* Left Side: Logo and App Name */}
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         {/* Replace with your logo image */}
-        <Image src="/logo.jpeg" alt="Logo" className="h-8 w-8 mr-2" width={32} height={32} />
-        <span className="font-semibold text-xl tracking-tight">MeAyudAI</span>
+        <Image src="/just_logo_big_without_bg.png" alt="Logo" className="h-14 w-14 mr-1" width={48} height={48} />
+        <span className="font-semibold text-xl tracking-tight">Meayuda<strong className="text-forth">AI</strong></span>
       </div>
 
       {/* Right Side: Navigation Links */}
