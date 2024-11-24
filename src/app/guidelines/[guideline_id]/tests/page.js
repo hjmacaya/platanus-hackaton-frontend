@@ -66,7 +66,7 @@ export default function GuidelinesPage() {
     }
   ]
 
-  const showTable = tests.data.length > 0;
+  const showTable = tests?.data?.length > 0;
   const headersToIgnore = ['created_at', 'guideline_id', 's3_link', 'positional_index', 's3_filename', 'student_id', 'id'];
   const headersMapping = {
     'title': 'Título',
