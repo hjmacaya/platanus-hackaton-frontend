@@ -4,7 +4,6 @@ import { BaseCard, UltimateCard } from "@/components/cards";
 import { QuestionAccordion, QuestionDetailCard } from '@/components/questions';
 
 export default function UiResources() {
-
   const cardsTypes = [
     {
       title: "Carta Base",
