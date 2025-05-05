@@ -4,7 +4,7 @@ import { configFile } from '../config';
 // Get all guidelines
 export const getAllGuidelines = async () => {
   try {
-    const response = await axios.get(`${configFile.API_BASE_URL}/guidelines/`);
+    const response = await axios.get(`${configFile.API_BASE_URL}/guidelines`);
     return response.data;
   } catch (error) {
     console.error(`Error al obtener todas las pautas: ${error}`);

@@ -10,8 +10,8 @@ export const getAllQuestionsByGuidelineId = async (guidelineId, testId) => {
         test_id: parseInt(testId)
       }
     }
-    const response = await axios.get(`${configFile.API_BASE_URL}/get_prompting_data/`, requestOptions);
-    return response.data;
+    const response = await axios.get(`${configFile.API_BASE_URL}/get_prompting_data`, requestOptions);
+    return response.data.data;
   } catch (error) {
     console.error(`Error al obtener los tests de la pauta con id ${guidelineId}: ${error}`);
     return null;
