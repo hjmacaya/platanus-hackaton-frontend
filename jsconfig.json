@@ -6,7 +6,8 @@
       "@/config/*": ["config/*"],
       "@/config": ["config/index"],
       "@/api/*": ["api/*"],
-      "@/api": ["api/index"]
+      "@/api": ["api/index"],
+      "@/public/*": ["../public/*"],
     }
   }
 }
