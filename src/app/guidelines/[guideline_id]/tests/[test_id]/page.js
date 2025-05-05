@@ -1,98 +1,77 @@
-"use client"
-import { QuestionCard, UltimateCard } from "@/components/cards";
-import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-
-import { getAllQuestionsByGuidelineId, getAllStudentsAnswerByTestId, getPromptingData } from '../../../../../api';
+"use client";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import { getAllQuestionsByGuidelineId } from "@/api";
+import { UltimateCard } from "@/components/cards";
+import axios from "axios";
+import { configFile } from "@/config";
 
 export default function QuestionPage() {
-
-  const params = useParams();
-  const testId = params['test_id'];
-  const guidelineId = params['guideline_id'];
-
+  const { test_id: testId, guideline_id: guidelineId } = useParams();
   const [questions, setQuestions] = useState([]);
-  // const [studentAnswers, setStudentAnswers] = useState([]);
-  // const [promptingData, setPromptingData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-
-  const fetchAllQuestions = async (guidelineId, testId) => {
+  const fetchAllQuestions = async () => {
+    setIsLoading(true);
     try {
-      const questions = await getAllQuestionsByGuidelineId(guidelineId, testId);
-      console.log('response:', questions);
-      setQuestions(questions);
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-      return null;
+      const data = await getAllQuestionsByGuidelineId(guidelineId, testId);
+      setQuestions(data || []);
+      data.forEach((question) => {
+        updateStudentAnswer(question);
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
-  // const fetchAllStudentAnswers = async (testId) => {
-  //   try {
-  //     const response = await getAllStudentsAnswerByTestId(testId);
-  //     console.log('responseData:', response.data);
-  //     setStudentAnswers(response.data);
-  //     return studentAnswers;
-  //   } catch (error) {
-  //     console.error("Error fetching student answers:", error);
-  //     return null;
-  //   }
-  // }
-
-  // const fetchPromptingData = async (guidelineId) => {
-  //   try {
-  //     const response = await getPromptingData(guidelineId);
-  //     setPromptingData(response.data);
-  //     console.log('promptingData:', response.data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error fetching prompting data:", error);
-  //   }
-  // }
-
-  // const getStudentAnswerByQuestionId = (questionId) => {
-  //   // console.log('questionId:', questionId);
-
-  //   return studentAnswers.find((studentAnswer) => studentAnswer.question_id === questionId);
-  // }
+  const updateStudentAnswer = async (question) => {
+    if (!question.studentAnswerId) return;
+    try {
+      const headers = axios.defaults.headers.common;
+      headers['Content-Type'] = 'application/json';
+      headers['Access-Control-Allow-Origin'] = '*';
+      const student_answer_id = question.studentAnswerId;
+      const body = {
+        model_feedback: question.modelFeedback
+      }
+      const response = await axios.put(`${configFile.API_BASE_URL}/students_answers/${student_answer_id}`, body, { headers });
+      console.log(`Update Student Answer ${student_answer_id} Response:`, response);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
-    fetchAllQuestions(guidelineId, testId);
-    // fetchAllStudentAnswers(testId);
-    // fetchPromptingData(guidelineId);
-  }, []);
+    fetchAllQuestions();
+  }, [guidelineId, testId]);
 
   return (
-    <div>
-      <div className="flex flex-col gap-4 p-4">
-        {questions && questions?.map((question, index) => (
+    <div className="p-4">
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          {/* CONTRASTING TOP BORDER + animate-spin */}
+          <div
+            className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"
+            role="status"
+            aria-label="Loading..."
+          />
+        </div>
+      ) : (
+        questions.map((q, i) => (
           <UltimateCard
-            key={index}
-            questionNumber={index + 1}
+            key={i}
+            questionNumber={i + 1}
             questionType="Desarrollo"
-            question={question.question}
-            guidelineAnswer={question.guidelineAnswer}
-            studentAnswer={question.studentAnswer}
-            studentScore={question.studentScore}
-            modelFeedback={question.modelFeedback}
+            question={q.question}
+            guidelineAnswer={q.guidelineAnswer}
+            studentAnswer={q.studentAnswer}
+            studentScore={q.studentScore}
+            modelFeedback={q.modelFeedback}
           />
-        ))}
-      </div>
-      {/* <div className="flex flex-col gap-4 p-4">
-        {questions?.map((question) => (
-          <QuestionCard
-            key={question.id}
-            questionNumber={question.positional_index}
-            questionType={question.type}
-            question={question.title}
-            guidelineAnswer={question.guideline_answer}
-            studentAnswer={getStudentAnswerByQuestionId(question.id)?.content}
-            studentScore={getStudentAnswerByQuestionId(question.id)?.student_score}
-            modelFeedback={getStudentAnswerByQuestionId(question.id)?.model_feedback}
-          />
-        ))}
-      </div> */}
+        ))
+      )}
     </div>
-    // )
-  )
+  );
 }
