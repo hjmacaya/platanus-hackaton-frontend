@@ -34,11 +34,22 @@ const Table = ({ data, styleVariant = 'style1', onView, onEdit, onDelete, header
               key={idx}
               className={getRowStyles(styleVariant, idx)}
             >
-              {filteredHeaders.map((header) => (
-                <td key={header} className={getCellStyles(styleVariant)}>
-                  {row[header]}
-                </td>
-              ))}
+              {filteredHeaders.map((header) => {
+                // Get the value from the row for this header
+                const value = row[header];
+                // Make sure we're not rendering an object directly as a React child
+                const displayValue = (() => {
+                  if (value === null || value === undefined) return '';
+                  if (typeof value === 'object') return JSON.stringify(value);
+                  return value;
+                })();
+                
+                return (
+                  <td key={header} className={getCellStyles(styleVariant)}>
+                    {displayValue}
+                  </td>
+                );
+              })}
               <td className={getCellStyles(styleVariant)}>
                 <div className="flex justify-center space-x-2">
                   <button

@@ -105,9 +105,15 @@ const UltimateCard = ({
       {/* Div 4: Model Feedback */}
       <div className="pb-6 border-gray-200">
         <h3 className="text-lg font-semibold mb-2">Feedback del modelo 🤖</h3>
-        <p className="text-gray-800 typewriter">
-          ➡️ {modelFeedback}
-        </p>
+        {modelFeedback === false ? (
+          <p className="text-gray-500 italic">
+            ➡️ No hay feedback disponible. Use el botón de corrección AI para generar feedback.
+          </p>
+        ) : (
+          <p className="text-gray-800 typewriter">
+            ➡️ {modelFeedback}
+          </p>
+        )}
       </div>
     </div>
   );

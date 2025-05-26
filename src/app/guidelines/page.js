@@ -29,8 +29,21 @@ export default function GuidelinesPage() {
   const fetchGuidelines = async () => {
     try {
       const guidelines = await getAllGuidelines();
-      setAllGuidelines(guidelines);
-      console.log("Guidelines:", guidelines);
+      console.log("Guidelines raw:", guidelines);
+
+      // Format the guidelines to match the table requirements
+      // The backend model has changed, so we need to adapt
+      const formattedGuidelines = {
+        data: Array.isArray(guidelines) ? guidelines.map(guideline => ({
+          ...guideline,
+          // Format dates to be human-readable if needed
+          created_at: new Date(guideline.created_at).toLocaleDateString(),
+          updated_at: new Date(guideline.updated_at).toLocaleDateString()
+        })) : []
+      };
+
+      console.log("Formatted guidelines:", formattedGuidelines);
+      setAllGuidelines(formattedGuidelines);
     } catch (error) {
       console.error('Error fetching guidelines:', error);
     }
@@ -42,11 +55,12 @@ export default function GuidelinesPage() {
 
   const showTable = allGuidelines?.data?.length > 0;
 
-  const headersToIgnore = ['id', 'created_at', 's3_link', 'professor_id', 's3_filename'];
+  const headersToIgnore = ['id', 'created_at', 'updated_at', 's3_link', 'professor_id', 's3_filename'];
   const headersMapping = {
     "max_score": "Puntaje máximo",
     "title": "Título",
     "topic": "Tema",
+    "description": "Descripción"
   }
 
   return (
@@ -65,7 +79,7 @@ export default function GuidelinesPage() {
         <h1 className="text-2xl font-bold">Tus pautas</h1>
       </div>
 
-      {showTable && ( 
+      {allGuidelines?.data && allGuidelines.data.length > 0 ? ( 
         <Table 
           data={allGuidelines.data} 
           styleVariant="style2" 
@@ -75,6 +89,10 @@ export default function GuidelinesPage() {
           headersToIgnore={headersToIgnore}
           headersMapping={headersMapping}
         />
+      ) : (
+        <div className="text-center py-8">
+          <p className="text-gray-600">No hay pautas disponibles. Por favor sube una nueva pauta.</p>
+        </div>
       )}
     </div>
   )
